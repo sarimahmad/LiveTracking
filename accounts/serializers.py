@@ -57,3 +57,6 @@ class LoginSerializers(serializers.Serializer):
             raise serializers.ValidationError(msg, code='authorization')
         data['user'] = user
         return data
+
+
+

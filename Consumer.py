@@ -16,24 +16,24 @@ class MyConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         data = json.loads(text_data)
         print(data)
-        lat = data['lat']
-        long = data['lng']
+        lat = data['latitude']
+        long = data['longitude']
 
         await self.channel_layer.group_send(self.room_name, {
             'type': "location",
-            'lat': lat,
-            'lng': long,
+            'latitude': lat,
+            'longitude': long,
         })
 
     async def location(self, event):
-        lat = event['lat']
-        long = event['lng']
+        lat = event['latitude']
+        long = event['longitude']
         print(lat)
         print(long)
         await self.send(text_data=json.dumps(
             {
-                'lat': lat,
-                'lng': long,
+                'latitude': lat,
+                'longitude': long,
 
             }
         )

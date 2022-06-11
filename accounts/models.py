@@ -18,7 +18,7 @@ class CustomerUser(AbstractUser):
     number = models.CharField(max_length=13, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return f"{self.email}"

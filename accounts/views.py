@@ -45,3 +45,22 @@ class LoginView(APIView):
             'user': data.data
         }
         return Response(responce_data, status=status.HTTP_200_OK)
+
+
+class CheckUser(APIView):
+    def post(self, request):
+        email = request.data['email']
+        try:
+            user = CustomerUser.objects.get(email=email)
+            return Response({"Status": 0,"message":"User Exits"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"Status":1},status=status.HTTP_404_NOT_FOUND)
+
+class ChangePassword(APIView):
+    def post(self, request):
+        print(request.data)
+        email = request.data['email']
+        object = CustomerUser.objects.get(email=email)
+        object.set_password(request.data['new_password']);
+        object.save()
+        return Response({"message":"Your Password has been Changes"}, status= status.HTTP_200_OK)
