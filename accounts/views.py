@@ -64,3 +64,18 @@ class ChangePassword(APIView):
         object.set_password(request.data['new_password']);
         object.save()
         return Response({"message":"Your Password has been Changes"}, status= status.HTTP_200_OK)
+
+
+class GetProfile(APIView):
+    def get(self, request,pk):
+        try:
+
+            user = CustomerUser.objects.get(id=pk)
+        except Exception as e:
+            return Response("User Does not Exits", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        data = GetUserSerializer(user)
+        responce_data = {
+            'user': data.data
+        }
+        return Response(responce_data, status=status.HTTP_200_OK)
+
